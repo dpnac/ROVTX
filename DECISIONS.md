@@ -77,14 +77,37 @@ contexte | décision | conséquences | date | MSG.
   aucun résultat de test inventé ; recette utilisateur obligatoire par jalon.
 - 2026-11-26 — MSG-0001.
 
+## ADR-0011 — Icône du projet : `icon.png` (512×512 RGBA) — VALIDÉE
+- Contexte : MSG-0002 ; l'utilisateur fournit `icon.png` comme icône des
+  exécutables (packaging NSIS/DEB, J7).
+- Décision : fichier versionné à la racine du dépôt (`icon.png`) ; conversions
+  .ico/.png multi-tailles générées au build packaging (jamais versionnées).
+- 2026-11-26 — MSG-0002.
+
+## ADR-0012 — Backend filesystem RDPDR maison sur ironrdp-rdpdr — PROPOSÉE (prototype J0 validé)
+- Contexte : ironrdp-rdpdr 0.9 fournit le canal MS-RDPEFS mais aucun backend
+  filesystem ; REQ-006 exige la redirection de dossiers arbitraires confinée.
+- Décision : extension Rust `ConfinedDriveBackend` (crates/protocol-rdp)
+  implémentant `RdpdrBackend` (create/read/write/close) avec confinement strict
+  à la racine du partage ; tests de confinement verts (TEST-RDP-002/003).
+- Conséquences : IRP query/directory/security à implémenter en J3 ; connexion
+  RDP complète (NLA, rendu) prototypée en J3 contre serveur réel.
+- 2026-11-26 — MSG-0002.
+
 ## Décisions en attente (à trancher en J0 / avec l'utilisateur)
-- D-ATT-01 : VNC — crate Rust mature ? (évaluation J0 ; sinon adaptateur validé).
-- D-ATT-02 : Mosh — pas de crate client mature connue ; prototype J0 ou report J5.
-- D-ATT-03 : NFS serveur local — composant système (nfs-ganesha/export kernel)
-  vs crate Rust ; décision après audit.
+- D-ATT-01 : VNC — crate `vnc-rs` 0.6.1 (MIT OR Apache-2.0, client VNC async) :
+  **évaluée OK licence** (MSG-0002) ; prototype de connexion à faire en J3.
+- D-ATT-02 : Mosh — `mosh` 0.1.4 (mosh-rs) est **GPL-3.0-or-later** : interdite
+  en lien statique selon LICENSES.md. Options : binaire séparé distribué à part
+  (conforme GPL) ou report. **Décision requise utilisateur** ; défaut proposé :
+  report J5 + adaptateur processus isolé documenté.
+- D-ATT-03 : NFS — crate `nfs` 0.1.0 = client NFSv3/v4 userspace (Apache-2.0),
+  pas un serveur. Serveur NFS local = composant système (nfs-ganesha / export
+  kernel) piloté par l'app, documenté comme dépendance OS (proposition J5).
 - D-ATT-04 : X11 forwarding / XDMCP — intégration native à valider (serveur X local).
-- D-ATT-05 : capture PCAP — `pcap` (libpcap/Npcap) : dépendance native à auditer ;
-  libpcap-dev absent de la toolbox actuelle (installation à demander).
+- D-ATT-05 : capture PCAP — `pcap` 2.5.0 (MIT OR Apache-2.0) : licence OK ;
+  dépendance système libpcap-dev à installer (Npcap sous Windows, non
+  redistribué : installation documentée). Prototype J5.
 - D-ATT-06 : helper privilégié — périmètre exact (bind < 1024 Linux) et IPC.
 - D-ATT-07 : rusqlite bundled vs system (ADR-0006).
 - D-ATT-08 : éditions/versions de référence PuTTYCM/MobaXterm (inventaire user).

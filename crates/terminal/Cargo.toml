@@ -1,0 +1,12 @@
+[package]
+name = "terminal"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Terminal VT/xterm : émulation alacritty_terminal + PTY portable-pty (REQ-011)"
+
+[dependencies]
+thiserror.workspace = true
+alacritty_terminal = "0.26"
+portable-pty = "0.9"

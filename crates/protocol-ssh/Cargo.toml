@@ -1,0 +1,16 @@
+[package]
+name = "protocol-ssh"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Client SSH2/SFTP : russh + russh-sftp, known_hosts, tunnels (REQ-001/012)"
+
+[dependencies]
+thiserror.workspace = true
+tokio.workspace = true
+russh = "0.65"
+russh-sftp = "4.0"
+
+[dev-dependencies]
+tempfile = "3"

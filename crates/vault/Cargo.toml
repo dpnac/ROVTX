@@ -1,0 +1,20 @@
+[package]
+name = "vault"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Coffre de secrets : Argon2id + AES-256-GCM, zeroize, exports sûrs (REQ-019)"
+
+[dependencies]
+thiserror.workspace = true
+serde.workspace = true
+hex.workspace = true
+zeroize.workspace = true
+secrecy.workspace = true
+aes-gcm.workspace = true
+argon2.workspace = true
+rand.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

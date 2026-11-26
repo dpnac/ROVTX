@@ -1,0 +1,5 @@
+# Toolchain stable épinglée (ADR-0001, prompt maître v1.2 §1)
+[toolchain]
+channel = "1.100.0"
+components = ["rustfmt", "clippy"]
+profile = "minimal"

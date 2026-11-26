@@ -52,3 +52,23 @@ en attente de recette, validée, rejetée/annulée.
   l'utilisateur (conformément au prompt maître).
 - **Prochaine action** : réponse de cadrage au user ; sur autorisation, lancer
   J0 (prototypes + verrouillage dépendances).
+
+---
+
+## MSG-0002 — 2026-11-26T21:4x:xxZ (horodatage exact à l'écriture)
+
+- **Demande** : (1) l'icône du projet est `icon.png`, à utiliser pour les
+  exécutables (packaging) ; (2) autorisation de commencer J0.
+- **Exigences** : REQ-025 (packaging, icône), ensemble J0 (TASK-0101 à 0109).
+- **Priorité** : maximale. **Jalon** : J0.
+- **Critères de réussite** : workspace Cargo compilable (build + clippy + fmt +
+  tests verts) ; prototypes DHCP options, TFTP, coffre, SSH, terminal,
+  confinement RDPDR démontrés par tests réellement exécutés ; évaluations
+  VNC/Mosh/NFS/pcap documentées ; versions verrouillées dans Cargo.lock.
+- **Statut** : en cours.
+- **Ambiguïtés** : fichier `icon.png` non trouvé dans le dépôt à la réception
+  du message → à fournir par l'utilisateur ou à générer (décision ADR-0011) ;
+  l'icône n'est pas bloquante pour J0 (packaging = J7).
+- **Intervention** : création du workspace, rust-toolchain.toml, CI squelette,
+  crates de prototypes avec tests, exécutions réelles (RUN-0002).
+- **Prochaine action** : bilan J0 partiel + recette utilisateur des prototypes.

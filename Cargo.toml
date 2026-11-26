@@ -1,0 +1,26 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.100"
+publish = false
+
+[workspace.dependencies]
+thiserror = "2"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tracing = "0.1"
+hex = "0.4"
+zeroize = { version = "1", features = ["derive"] }
+secrecy = "0.10"
+aes-gcm = "0.10"
+argon2 = "0.5"
+rand = "0.8"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1

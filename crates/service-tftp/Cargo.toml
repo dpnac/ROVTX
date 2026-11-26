@@ -1,0 +1,15 @@
+[package]
+name = "service-tftp"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Serveur TFTP RFC 1350 + blksize/timeout/tsize, racine confinée (REQ-022)"
+
+[dependencies]
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+rand.workspace = true

@@ -1,0 +1,37 @@
+name = "ci"
+on:
+  push:
+  pull_request:
+
+# CI squelette J0 (TASK-0101) — contrôles obligatoires du prompt maître §8.
+# Matrice Windows + Linux ; les rapports sont publiés même en cas d'échec.
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain épinglée
+        run: rustup show   # lit rust-toolchain.toml
+      - name: fmt
+        run: cargo fmt --all -- --check
+      - name: clippy
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - name: tests
+        run: cargo test --workspace --locked
+      - name: build release
+        run: cargo build --workspace --release --locked
+      - name: audit (non bloquant en J0, bloquant dès J1)
+        if: always()
+        run: |
+          cargo install cargo-audit --locked
+          cargo audit
+      - name: rapports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapports-${{ matrix.os }}
+          path: reports/

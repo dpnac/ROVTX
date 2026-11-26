@@ -1,0 +1,17 @@
+[package]
+name = "service-dhcp"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Serveur DHCPv4 : moteur DORA, baux, éditeur d'options typées (REQ-020/021)"
+
+[dependencies]
+thiserror.workspace = true
+serde.workspace = true
+hex.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+dhcproto = "0.15"
+ipnet = "2.12"
