@@ -55,7 +55,7 @@ en attente de recette, validée, rejetée/annulée.
 
 ---
 
-## MSG-0002 — 2026-11-26T21:4x:xxZ (horodatage exact à l'écriture)
+## MSG-0002 — 2026-11-26T21:41:03Z
 
 - **Demande** : (1) l'icône du projet est `icon.png`, à utiliser pour les
   exécutables (packaging) ; (2) autorisation de commencer J0.
@@ -69,6 +69,25 @@ en attente de recette, validée, rejetée/annulée.
 - **Ambiguïtés** : fichier `icon.png` non trouvé dans le dépôt à la réception
   du message → à fournir par l'utilisateur ou à générer (décision ADR-0011) ;
   l'icône n'est pas bloquante pour J0 (packaging = J7).
-- **Intervention** : création du workspace, rust-toolchain.toml, CI squelette,
-  crates de prototypes avec tests, exécutions réelles (RUN-0002).
-- **Prochaine action** : bilan J0 partiel + recette utilisateur des prototypes.
+- **Intervention** : création du workspace (6 crates), rust-toolchain.toml
+  (1.100.0), CI squelette (.github/workflows/ci.yml), copie de icon.png
+  (ADR-0011), prototypes + tests : service-dhcp (options typées, priorités,
+  cross-check dhcproto), service-tftp (RFC 1350 + options + confinement),
+  vault (Argon2id + AES-256-GCM), protocol-ssh (russh contre OpenSSH 10.0
+  local), terminal (alacritty_terminal + portable-pty, Ctrl+C transmis),
+  protocol-rdp (backend RDPDR confiné, extension Rust d'ironrdp-rdpdr,
+  ADR-0012) ; évaluations licences VNC/Mosh/NFS/pcap (D-ATT-01→05).
+- **Fichiers touchés** : Cargo.toml, Cargo.lock, rust-toolchain.toml,
+  .github/workflows/ci.yml, icon.png, crates/{vault,service-dhcp,service-tftp,
+  protocol-ssh,terminal,protocol-rdp}/*, TESTS_RESULTS.md (RUN-0002),
+  TESTS_MANUELS.md (TM-00-01→03), DECISIONS.md (ADR-0011/0012, D-ATT),
+  TODO.md, AVANCEMENT.md, LICENSES.md à compléter en J1 (cargo deny).
+- **Commandes exécutées** : voir RUN-0002 (build, 29 tests, clippy -D warnings,
+  fmt --check, build release --locked : tous code 0) ; sshd de fixture démarré
+  sur 127.0.0.1:2222.
+- **Résultats** : 29 PASS / 0 FAIL ; aucune régression (rien de préexistant).
+- **Blocages** : aucun technique ; décisions user attendues (recette J0,
+  Mosh GPL, inventaire parité, coffre).
+- **Statut** : implémentée, testée, **en attente de recette** (TM-00-01→03).
+- **Prochaine action** : recette utilisateur J0 ; puis J1 (crate desktop egui,
+  SQLite, keyring, F12).
