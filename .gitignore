@@ -1,0 +1,5 @@
+target/
+/build/
+captures/
+reports/tests/*.log
+pieces-jointes/
