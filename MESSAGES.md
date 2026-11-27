@@ -92,3 +92,4 @@ en attente de recette, validée, rejetée/annulée.
 - **Prochaine action** : recette utilisateur J0 ; puis J1 (crate desktop egui,
   SQLite, keyring, F12).
 | MSG-0003 | 2026-11-26 | utilisateur | Question : « Ou se trouve le .deb » — réponse : aucun .deb produit à ce stade, le packaging Debian est le jalon J6 (après J1 exécutable applicatif) ; état de l'outillage vérifié (dpkg-deb présent ; fakeroot/lintian/dh absents) | aucune (question d'information) |
+| MSG-0004 | 2026-11-27 | utilisateur | Erreur GitHub Actions « Invalid workflow file … line 2 » (run 45945501983) : cause = ligne 1 `name = "ci"` (syntaxe non YAML). Correctif : `name: ci`, clé `on` entre guillemets, `reports/.gitkeep` (dossier vide => upload-artifact échouerait), audit `continue-on-error` en J0. Validé YAML localement (ruby/psych). Push impossible depuis la toolbox (proxy 403 github.com) : push à faire côté utilisateur | commit correctif ci.yml + reports/.gitkeep |
