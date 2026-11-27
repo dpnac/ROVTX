@@ -1,5 +1,5 @@
-name = "ci"
-on:
+name: ci
+"on":
   push:
   pull_request:
 
@@ -26,6 +26,7 @@ jobs:
         run: cargo build --workspace --release --locked
       - name: audit (non bloquant en J0, bloquant dès J1)
         if: always()
+        continue-on-error: true # J0 uniquement : retirer ce flag en J1 (TASK-0101)
         run: |
           cargo install cargo-audit --locked
           cargo audit
