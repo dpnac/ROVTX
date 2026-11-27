@@ -111,3 +111,9 @@ contexte | décision | conséquences | date | MSG.
 - D-ATT-06 : helper privilégié — périmètre exact (bind < 1024 Linux) et IPC.
 - D-ATT-07 : rusqlite bundled vs system (ADR-0006).
 - D-ATT-08 : éditions/versions de référence PuTTYCM/MobaXterm (inventaire user).
+- D-0007 (2026-11-27, MSG-0006) : provider crypto de russh = `ring` (features
+  explicites flate2+ring+rsa, default-features=false). Motif : aws-lc-sys exige
+  NASM sous Windows MSVC (CI windows-2022 en échec) ; ring se compile sans
+  assembleur externe. Algorithmes SSH négociés inchangés pour nos tests réels.
+  Réversible si NASM est installé sur les runners (setup nasm) — non retenu :
+  dépendance d'outillage supplémentaire sans bénéfice fonctionnel.
