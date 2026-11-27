@@ -21,14 +21,13 @@ Recettes SSH/SFTP (TM-02-*), RDP confinement (TM-03-*), DHCP laboratoire isolé
 l'ouverture de chaque jalon, reprises de REC-01 à REC-07 du cahier des charges.
 
 ## J0 — recettes des prototypes (à rejouer par l'utilisateur sur sa machine)
-- TM-00-01 | Linux | dépôt + cargo | Prérequis sshd de test :
-  `mkdir -p /tmp/sshd-test && ssh-keygen -q -t ed25519 -f /tmp/sshd-test/host_ed25519 -N ""`
-  puis config minimale (Port 2222, ListenAddress 127.0.0.1, UsePAM no,
-  Subsystem sftp) et `sshd -f …` ; clé client dans authorized_keys ;
-  fixture `/tmp/sshd-test/known_fingerprints.txt` = sorties de
-  `ssh-keygen -lf host_*.pub` préfixées « 127.0.0.1 ».
+- TM-00-01 | Linux | dépôt + cargo + openssh-server | Prérequis sshd de test
+  automatisé : `bash scripts/tm00-setup-sshd.sh` (crée /tmp/sshd-test, clés
+  hôte+client, sshd_config 127.0.0.1:2222, authorized_keys, known_fingerprints,
+  démarre sshd ; idempotent ; stop : `kill $(cat /tmp/sshd-test/sshd.pid)`).
   Étapes : `cargo test -p protocol-ssh` | attendu : 2 PASS | observé (agent) :
-  2 PASS | statut : OK agent, en attente recette utilisateur.
+  2 PASS (rejoué le 2026-11-27 via le script, fixture recréée de zéro) |
+  statut : OK agent, en attente recette utilisateur.
 - TM-00-02 | Linux/Win | dépôt + cargo | `cargo test --workspace` |
   attendu : 29 PASS, 0 FAIL | observé (agent) : 29/0 | statut : en attente
   recette utilisateur.
