@@ -91,3 +91,4 @@ en attente de recette, validée, rejetée/annulée.
 - **Statut** : implémentée, testée, **en attente de recette** (TM-00-01→03).
 - **Prochaine action** : recette utilisateur J0 ; puis J1 (crate desktop egui,
   SQLite, keyring, F12).
+| MSG-0003 | 2026-11-26 | utilisateur | Question : « Ou se trouve le .deb » — réponse : aucun .deb produit à ce stade, le packaging Debian est le jalon J6 (après J1 exécutable applicatif) ; état de l'outillage vérifié (dpkg-deb présent ; fakeroot/lintian/dh absents) | aucune (question d'information) |
